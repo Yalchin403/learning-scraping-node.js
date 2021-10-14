@@ -1,0 +1,19 @@
+{
+  "name": "learning-scraping-node",
+  "version": "1.0.0",
+  "description": "learning scraping using node.js",
+  "main": "firstScraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Yalchin403/learning-scraping-node.js.git"
+  },
+  "author": "Yalchin Mammadli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yalchin403/learning-scraping-node.js/issues"
+  },
+  "homepage": "https://github.com/Yalchin403/learning-scraping-node.js#readme"
+}
