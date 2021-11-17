@@ -7,21 +7,21 @@ const ffmpeg = require("ffmpeg");
 const shortId = require("shortid");
 
 let playListUrl = "https://www.youtube.com/playlist?list=PLaq1Za1A2ZfuHg8ihMWxoVlO_N2ITbgMR";
-let url = "https://www.youtube.com/watch?v=wQ3uStFEOcs"
+// let url = "https://www.youtube.com/watch?v=wQ3uStFEOcs"
 let video_path;
 let mp3_path;
 let id;
-main(playListUrl).then(a_tags => {
+// main(playListUrl).then(a_tags => {
 
-    console.log(a_tags);
-    a_tags.forEach((item) => {
-        id = shortId.generate();
-        video_path = `./videos/${id}.mp4`;
-        mp3_path = `./mp3s/${id}.mp3`;
-        download_and_convert(item);
+//     console.log(a_tags);
+//     a_tags.forEach((item) => {
+//         id = shortId.generate();
+//         video_path = `./videos/${id}.mp4`;
+//         mp3_path = `./mp3s/${id}.mp3`;
+//         download_and_convert(item);
 
-    });
-});
+//     });
+// });
 
 // let video_path = "./videos/video.mp4";
 // let mp3_path = "./mp3s/music.mp3"
@@ -53,7 +53,7 @@ async function main(url) {
 
 }
 
-function download_and_convert(url){
+function download_and_convert(url, mp3_path, video_path){
      ytdl(url, { filter: format => format.container === 'mp4' })
 
 
@@ -84,10 +84,21 @@ function convert_into_mp3(video_path, mp3_path){
         process.then(function (video) {
             // Callback mode
             video.fnExtractSoundToMP3(mp3_path, function (error, file) {
-                if (!error)
+                if (!error){
                     console.log('Audio file: ' + file);
+                    //  delete the video after conversion done
+
+                    
+                    try {
+                        fs.unlinkSync(video_path)
+                        //file removed
+                        console.log(`${video_path} removed successfully`)
+                    } catch(err) {
+                        console.error(err)
+                    }
+                }
                 else {
-                    console.log(error);
+                    console.log(error.message);
                 }
             });
         }, function (err) {
@@ -100,6 +111,9 @@ function convert_into_mp3(video_path, mp3_path){
 }
 
 
-// convert_into_mp3("./0cz8aAdVuS.mp4", "music.mp3")
-// let body = main(playListUrl);
+// let url = "https://www.youtube.com/watch?v=CeN5pYX77vA";
+// video_path = "./video/video.mp4";
+// mp3_path = "./music/music.mp3";
+
 // download_and_convert(url);
+exports.download_and_convert = download_and_convert;
